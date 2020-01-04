@@ -1,0 +1,16 @@
+version: "3.3"
+services:
+  web:
+    image: top5radio-web
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+  api:
+    image: top5radio-api
+    build:
+      context: ./backend/Top5Radio.API/
+      dockerfile: Dockerfile
+    ports:
+      - "5000:80"
