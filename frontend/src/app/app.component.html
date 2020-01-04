@@ -1,7 +1,10 @@
 <header class="mat-elevation-z6 header">
-    <mat-toolbar color="primary" class="toolbar">        
+    <mat-toolbar color="primary">        
     
-        <p>Top 5 Radio</p>
+        <div class="header-left">
+            <a [routerLink]="['/']">Top 5 Radio</a>
+            <a class="admin-link" [routerLink]="['admin', 'ranking']"><span>(Secret)</span> Admin Page</a>
+        </div>
 
         <button mat-icon-button (click)="snav.toggle()" aria-label="Toogle menu">
             <em class="fas fa-align-justify" aria-hidden="true"></em>
