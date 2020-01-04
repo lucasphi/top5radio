@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Top5Radio.API.Persistance.Repository.Interfaces;
 
 namespace Top5Radio.API.Controllers
 {
@@ -10,13 +11,17 @@ namespace Top5Radio.API.Controllers
     [Route("[controller]")]
     public class MusicsController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<object> List()
+        private readonly IMusicRepository _musicRepository;
+
+        public MusicsController(IMusicRepository musicRepository)
         {
-            return new List<object>
-            {
-                new { Name = "Lucas" }
-            };
+            _musicRepository = musicRepository;
+        }
+
+        [HttpGet]
+        public IActionResult List()
+        {
+            return Ok(_musicRepository.ListAll());
         }
     }
 }

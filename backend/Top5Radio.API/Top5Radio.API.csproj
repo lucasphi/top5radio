@@ -10,7 +10,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Top5Radio.Data\Top5Radio.Data.csproj" />
+    <Resource Include="Startup.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="spotify-top100-2018.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 
