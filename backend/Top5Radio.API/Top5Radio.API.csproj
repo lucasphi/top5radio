@@ -10,12 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Startup.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="spotify-top100-2018.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

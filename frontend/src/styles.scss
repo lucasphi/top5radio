@@ -6,3 +6,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .app-background {
     background: #303030;
 }
+
+a {
+    color: #EFEFEF;
+    text-decoration: none;
+
+    &:hover {
+        color: #CCCCCC;
+    }
+}
