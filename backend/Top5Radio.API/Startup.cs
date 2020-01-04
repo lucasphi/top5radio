@@ -29,6 +29,14 @@ namespace Top5Radio.API
         {
             services.AddTransient<IMusicRepository, MusicRepository>();
 
+            services.AddCors((options) =>
+            {
+                options.AddDefaultPolicy((builder) =>
+                {
+                    builder.AllowAnyOrigin();
+                });
+            });
+
             services.AddControllers();
         }
 
@@ -41,6 +49,7 @@ namespace Top5Radio.API
             }
 
             app.UseRouting();
+            app.UseCors();
 
             app.UseAuthorization();
 
