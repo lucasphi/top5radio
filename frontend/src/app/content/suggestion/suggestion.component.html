@@ -25,7 +25,7 @@
         <h2>Selected Music</h2>
         <div class="opt-music available">
             <p *ngFor="let music of selectedMusic; let i = index" 
-                (click)="removeSong(music)">{{ i+1 }}) {{ music.name }}</p>
+                (click)="removeSong(music)"><strong>{{ i+1 }}.</strong> {{ music.name }}</p>
         </div>
     </div>
 </div>
