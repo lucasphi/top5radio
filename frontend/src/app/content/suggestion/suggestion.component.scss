@@ -1,0 +1,54 @@
+.actions {
+    display: flex;
+    justify-content: space-between;
+
+    @media only screen and (max-width: 599px) {        
+        display: block;
+    }
+}
+
+.suggestions {
+    height: 50%;
+    display: flex;
+
+    @media only screen and (max-width: 599px) {        
+        display: block;
+    }
+
+    .suggestion--item {
+        @media only screen and (min-width: 600px) {
+            flex: 1;
+        }
+
+        .opt-music {
+            border: 1px solid #fff;            
+            height: 100%;
+            overflow: auto;            
+
+            p {
+                margin: 0;
+                padding: 10px;
+                &:hover {
+                    background: #505050;
+                }
+            }
+            
+        }
+
+    }   
+    
+    .available-songs {
+        display: flex;
+        @media only screen and (max-width: 599px) {         
+            flex-direction: column;
+        }
+        h2 {
+            margin-right: 20px;
+        }
+    }
+    
+}
+
+.available {
+    cursor: pointer;
+}

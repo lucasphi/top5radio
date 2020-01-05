@@ -1,1 +1,31 @@
-<p>suggestion works!</p>
+<h1>Please choose your top 5 music!</h1>
+
+<div class="actions">
+    <mat-form-field class="example-full-width">
+        <input matInput type="text" placeholder="Please tell us your name" [(ngModel)]="username" />
+    </mat-form-field>    
+    <button color="primary" mat-raised-button *ngIf="selectedMusic.length === 5"
+        (click)="sendChoises()">Send choices!</button>
+</div>
+
+<div class="suggestions">    
+    <div class="suggestion--item">
+        <div class="available-songs">
+            <h2>Available Music </h2>
+            <mat-form-field class="example-full-width">
+                <input matInput type="text" placeholder="Search song..." [(ngModel)]="searchInput" />
+            </mat-form-field>
+        </div>
+        <div class="opt-music" [ngClass]="{'available': selectedMusic.length < 5}">
+            <p *ngFor="let music of musics | search:searchInput" 
+                (click)="selectSong(music)">{{ music.name }}</p>
+        </div>
+    </div>
+    <div class="suggestion--item">
+        <h2>Selected Music</h2>
+        <div class="opt-music available">
+            <p *ngFor="let music of selectedMusic; let i = index" 
+                (click)="removeSong(music)">{{ i+1 }}) {{ music.name }}</p>
+        </div>
+    </div>
+</div>
