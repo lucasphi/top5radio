@@ -19,9 +19,14 @@ export class SuggestionComponent implements OnInit {
   constructor(private suggestionService: SuggestionService) { }
 
   ngOnInit() {
-    this.suggestionService.loadMusics().subscribe((musics) => {
-      this.musics = musics.sort((a, b) => a.name.localeCompare(b.name));
-    });
+    this.suggestionService.loadMusics().subscribe(
+      (musics) => {
+        this.musics = musics.sort((a, b) => a.name.localeCompare(b.name));
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   selectSong(music: Music): void {

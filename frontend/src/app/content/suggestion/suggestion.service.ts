@@ -12,6 +12,7 @@ export class SuggestionService {
 
     loadMusics(): Observable<Music[]> {
         const url = `${environment.apiEndpoint}/musics`;
+        console.log(url);
         return this.http.get<Music[]>(url);
     }
 }

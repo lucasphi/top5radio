@@ -7,7 +7,7 @@ import { Music } from '../models/music.model';
 })
 export class SearchPipe implements PipeTransform {
 
-  public transform(value: Music[], filter: string) {
+  transform(value: Music[], filter: string) {
 
     if (!value || filter.length === 0) {
      return value;
