@@ -9,13 +9,6 @@ namespace Top5Radio.Admin.Models
     {
         public string Username { get; set; }
 
-        public List<Song> Songs { get; set; }
-
-        public class Song
-        {
-            public string Id { get; set; }
-
-            public string Name { get; set; }
-        }
+        public List<string> Songs { get; set; }
     }
 }

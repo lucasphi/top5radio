@@ -39,7 +39,7 @@ namespace Top5Radio.Admin.Persistance.Repository
 
         public IEnumerable<Music> Filter(Expression<Func<MusicData, bool>> expression)
         {
-            var result = DbMock.Where(expression.Compile());
+            IEnumerable<MusicData> result = DbMock.Where(expression.Compile());
             return _mapper.Map<List<Music>>(result);
         }
 

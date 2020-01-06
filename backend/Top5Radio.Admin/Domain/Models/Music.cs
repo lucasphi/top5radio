@@ -12,5 +12,7 @@ namespace Top5Radio.Admin.Domain.Models
         public string Name { get; set; }
 
         public int Voted { get; set; }
+
+        public List<string> Users { get; set; }
     }
 }

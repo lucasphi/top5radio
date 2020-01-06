@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -29,15 +30,16 @@ namespace Top5Radio.UnitTests.Admin.ControllerTests
         public void TestSongChoosingApi()
         {
             _musicRepositoryMock.Setup(f => f.Filter(It.IsAny<Expression<Func<MusicData, bool>>>()))
-                .Returns(TopSOngsControllerTestsMock.MusicsMock);
+                .Returns(TestsMock.MusicsMock);
 
             IEnumerable<Music> updatedMusic = null;
             _musicRepositoryMock.Setup(f => f.BatchUpdate(It.IsAny<IEnumerable<Music>>()))
                 .Callback<IEnumerable<Music>>(obj => updatedMusic = obj);
 
-            controller.ChooseTopFive(new Top5Radio.Admin.Models.Top5Songs());
+            var result = controller.ChooseTopFive(new Top5Radio.Admin.Models.Top5Songs() { Username = "Test" });
 
-            updatedMusic.Should().BeEquivalentTo(TopSOngsControllerTestsMock.MusicsUpdatedMock);
+            updatedMusic.Should().BeEquivalentTo(TestsMock.MusicsUpdatedMock);
+            result.Should().BeOfType(typeof(OkResult));
         }
     }
 }

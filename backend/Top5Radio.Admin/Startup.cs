@@ -1,15 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Top5Radio.Admin.Domain;
 using Top5Radio.Admin.Persistance.Repository;
 using Top5Radio.Admin.Persistance.Repository.Interfaces;
 
@@ -29,6 +24,16 @@ namespace Top5Radio.Admin
         {
             services.AddTransient<IMusicRepository, MusicRepository>();
 
+            services.AddTransient<IMusicDomainService, MusicDomainService>();
+
+            services.AddAutoMapper(typeof(Startup));
+            var mappingConfig = new MapperConfiguration(c =>
+            {
+                c.CreateMap<Domain.Models.Music, Persistance.Data.MusicData>().ReverseMap();
+            });
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
             services.AddCors((options) =>
             {
                 options.AddDefaultPolicy((builder) =>
@@ -46,7 +51,7 @@ namespace Top5Radio.Admin
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
+            }            
 
             app.UseHttpsRedirection();
 

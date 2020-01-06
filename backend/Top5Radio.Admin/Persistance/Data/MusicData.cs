@@ -12,5 +12,7 @@ namespace Top5Radio.Admin.Persistance.Data
         public string Name { get; set; }
 
         public int Voted { get; set; }
+
+        public List<string> Users { get; set; } = new List<string>();
     }
 }
