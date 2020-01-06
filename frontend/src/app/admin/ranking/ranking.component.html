@@ -1,8 +1,13 @@
 <h1>Admin page</h1>
 <div class="result">
     <h2>TOP 5 choosen songs!</h2>
-    
+    <div>
+        <p *ngFor="let item of topSongs; let i = index">{{ i+1 }}. {{ item.name }}</p>
+    </div>
 </div>
 <div class="result">
     <h2>Users</h2>
+    <div>
+        <p *ngFor="let item of users; let i = index">{{ i+1 }}. <strong>{{ item.username }}</strong>. Total Votes: <strong>{{ item.totalVotes }}</strong></p>
+    </div>
 </div>
