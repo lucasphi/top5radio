@@ -48,7 +48,9 @@ namespace Top5Radio.Admin.Persistance.Repository
             // Fakely save the data
             foreach (var music in musics)
             {
-                DbMock.First(f => f.Id == music.Id).Voted = music.Voted;
+                var entry = DbMock.First(f => f.Id == music.Id);
+                entry.Voted = music.Voted;
+                entry.Users = music.Users;
             }
         }
     }
