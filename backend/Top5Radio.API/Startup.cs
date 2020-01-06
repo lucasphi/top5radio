@@ -34,6 +34,8 @@ namespace Top5Radio.API
                 options.AddDefaultPolicy((builder) =>
                 {
                     builder.AllowAnyOrigin();
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyHeader();
                 });
             });
 

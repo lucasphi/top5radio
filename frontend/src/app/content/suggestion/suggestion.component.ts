@@ -46,7 +46,18 @@ export class SuggestionComponent implements OnInit {
   }
 
   sendChoises(): void {
-
+    this.suggestionService.saveTopMusics(this.username, this.selectedMusic).subscribe(
+      () => {
+        alert('Songs saved! Weeeee');
+        this.username = '';
+        this.selectedMusic.forEach(f => this.musics.push(f));
+        this.musics = this.musics.sort((a, b) => a.name.localeCompare(b.name));
+        this.selectedMusic = [];
+      },
+      () => {
+        alert('Well, ain\'t that embarrassing? Something failed in the test.');
+      }
+    );
   }
 
 }
