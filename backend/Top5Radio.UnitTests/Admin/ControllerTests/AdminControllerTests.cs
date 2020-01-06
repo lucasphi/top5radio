@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using Top5Radio.Admin.Controllers;
 using Top5Radio.Admin.Domain;
+using Top5Radio.Admin.Domain.Models;
 using Top5Radio.Admin.Persistance.Data;
 using Top5Radio.Admin.Persistance.Repository.Interfaces;
 using Xunit;
@@ -38,6 +39,22 @@ namespace Top5Radio.UnitTests.Admin.ControllerTests
 
             result.Should().BeOfType(typeof(OkObjectResult));
             (result as OkObjectResult).Value.Should().BeEquivalentTo(TestsMock.MostVotedMusicResultMock);
+        }
+
+        [Fact]
+        public void TestUserConsolidation()
+        {
+            _musicRepositoryMock.Setup(f => f.Filter(It.IsAny<Expression<Func<MusicData, bool>>>()))
+                .Returns(TestsMock.MostVotedMusicMock);
+
+            IEnumerable<Music> top5music = null;
+            _musicDomainServiceMock.Setup(f => f.ConsolidateUserVotes(It.IsAny<IEnumerable<Music>>()))
+                .Callback<IEnumerable<Music>>(obj => top5music = obj);
+
+            var result = controller.CalculateUserContribution();
+
+            result.Should().BeOfType(typeof(OkObjectResult));
+            top5music.Should().BeEquivalentTo(TestsMock.MostVotedMusicResultMock);
         }
     }
 }

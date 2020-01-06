@@ -32,8 +32,12 @@ namespace Top5Radio.Admin.Controllers
 
         [HttpGet("usercontribution")]
         public IActionResult CalculateUserContribution()
-        {            
-            return Ok();
+        {
+            IEnumerable<Music> top5 = _musicRepository.Filter(f => f.Voted > 0).OrderByDescending(f => f.Voted).Take(5);
+
+            var users = _musicDomainService.ConsolidateUserVotes(top5);
+
+            return Ok(users);
         }
     }
 }
