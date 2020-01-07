@@ -1,5 +1,14 @@
 version: "3.3"
 services:
+  database:
+    image: mongo-express
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example123    
+    ports:
+      - "8081:8081"
+    networks:
+      - gateway
   web:
     image: top5radio-web
     build:
@@ -26,7 +35,7 @@ services:
     ports:
       - "5001:80"
     networks:
-      - gateway
+      - gateway  
 
 networks:
   gateway: {}
