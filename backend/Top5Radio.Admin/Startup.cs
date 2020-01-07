@@ -39,6 +39,7 @@ namespace Top5Radio.Admin
                 options.AddDefaultPolicy((builder) =>
                 {
                     builder.AllowAnyOrigin();
+                    builder.AllowAnyMethod();
                 });
             });
 
