@@ -3,7 +3,7 @@ services:
   database:
     image: mongo-express
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_USERNAME: MongoDB
       MONGO_INITDB_ROOT_PASSWORD: example123    
     ports:
       - "8081:8081"

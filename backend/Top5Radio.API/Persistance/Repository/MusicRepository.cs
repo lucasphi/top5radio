@@ -1,35 +1,19 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using MongoDB.Driver;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using Top5Radio.API.Persistance.Repository.Interfaces;
 using Top5Radio.Persistance.Data;
+using Top5Radio.Shared.MongoDb;
+using Top5Radio.Shared.MongoDb.Configuration;
 
 namespace Top5Radio.Data.Repository
-{   
-    public class MusicRepository : IMusicRepository
+{
+    public class MusicRepository : BaseRepository<MusicData>, IMusicRepository
     {
-        #region Mocking a Database
-        internal static IEnumerable<MusicData> DbMock { get; }
-        static MusicRepository()
-        {
-            var path = Path.Combine(Environment.CurrentDirectory, "spotify-top100-2018.json");
+        public MusicRepository(IDatabaseSettings dbSettings)
+            : base (dbSettings)
+        { }
 
-            if (!File.Exists(path))
-            {
-                throw new Exception("Music json not found");
-            }
-            
-            var json = File.ReadAllText(path);
-            DbMock = JsonConvert.DeserializeObject<List<MusicData>>(json);
-        }
-        #endregion
-
-        public IEnumerable<MusicData> ListAll()
-        {
-            return DbMock.ToList();
-        }
+        public override string CollectionName => "Musics";
     }
 }

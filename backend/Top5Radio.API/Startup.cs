@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Top5Radio.API.Persistance.Configuration;
 using Top5Radio.API.Persistance.Repository.Interfaces;
 using Top5Radio.Data;
 using Top5Radio.Data.Repository;
@@ -28,6 +29,9 @@ namespace Top5Radio.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IMusicRepository, MusicRepository>();
+
+            services.AddTopSongsDatabase(Configuration);
+            SetupDb.PopulateDatabase(Configuration);
 
             services.AddCors((options) =>
             {
