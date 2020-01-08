@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Top5Radio.Admin\Top5Radio.Admin.csproj" />
+    <ProjectReference Include="..\Top5Radio.API\Top5Radio.API.csproj" />
   </ItemGroup>
 
 </Project>

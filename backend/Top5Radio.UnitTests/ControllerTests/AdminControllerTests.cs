@@ -12,7 +12,7 @@ using Top5Radio.Admin.Persistance.Data;
 using Top5Radio.Admin.Persistance.Repository.Interfaces;
 using Xunit;
 
-namespace Top5Radio.UnitTests.Admin.ControllerTests
+namespace Top5Radio.UnitTests.ControllerTests
 {
     public class AdminControllerTests
     {

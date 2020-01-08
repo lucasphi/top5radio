@@ -16,7 +16,7 @@ export class SuggestionService {
     }
 
     saveTopMusics(username: string, songs: Music[]): Observable<any> {
-        const url = `${environment.adminEndpoint}/topsongs`;
+        const url = `${environment.apiEndpoint}/musics/vote`;
         const selectedSongs = songs.map(f => f.id);
 
         const httpOptions = {

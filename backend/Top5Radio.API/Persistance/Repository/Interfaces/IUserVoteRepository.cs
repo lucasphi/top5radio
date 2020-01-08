@@ -7,7 +7,7 @@ using Top5Radio.Shared.MongoDb;
 
 namespace Top5Radio.API.Persistance.Repository.Interfaces
 {
-    public interface IMusicRepository : IBaseRepository<MusicData>
+    public interface IUserVoteRepository : IBaseRepository<UserVoteData>
     {
     }
 }

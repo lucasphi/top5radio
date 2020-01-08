@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using System.Text;
 using Top5Radio.Admin.Domain.Models;
+using Top5Radio.API.Persistance.Data;
 
-namespace Top5Radio.UnitTests.Admin.ControllerTests
+namespace Top5Radio.UnitTests.ControllerTests
 {
     static class TestsMock
     {
-        public static List<Music> MusicsMock => new List<Music>()
+        public static List<UserVoteData> UserVotesMock => new List<UserVoteData>()
         {
-            new Music()
+            new UserVoteData()
             {
                 Id = "1",
                 Voted = 0,
                 Users = new List<string>()
             },
-            new Music()
+            new UserVoteData()
             {
                 Id = "2",
                 Voted = 3,
@@ -26,15 +27,15 @@ namespace Top5Radio.UnitTests.Admin.ControllerTests
             }
         };
 
-        public static List<Music> MusicsUpdatedMock => new List<Music>()
+        public static List<UserVoteData> MusicsUpdatedMock => new List<UserVoteData>()
         {
-            new Music()
+            new UserVoteData()
             {
                 Id = "1",
                 Voted = 1,
                 Users = new List<string>() { "Test" }
             },
-            new Music()
+            new UserVoteData()
             {
                 Id = "2",
                 Voted = 4,

@@ -5,8 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Top5Radio.Data.Repository;
-using Top5Radio.Persistance.Data;
+using Top5Radio.API.Persistance.Data;
+using Top5Radio.Shared;
 using Top5Radio.Shared.MongoDb.Configuration;
 
 namespace Top5Radio.API.Persistance.Configuration
@@ -22,13 +22,13 @@ namespace Top5Radio.API.Persistance.Configuration
             var database = client.GetDatabase(dbSettings.DatabaseName);
 
             if (!database.ListCollectionNames().Any())
-            {
-                var repo = new MusicRepository(dbSettings);
-                database.CreateCollection(repo.CollectionName);                
+            {                
+                database.CreateCollection(Constants.Database.MUSIC_COLLECTION);
+                database.CreateCollection(Constants.Database.VOTES_COLLECTION);
 
                 var data = CreateData<MusicData>();
 
-                var collection = database.GetCollection<MusicData>(repo.CollectionName);
+                var collection = database.GetCollection<MusicData>(Constants.Database.MUSIC_COLLECTION);
                 collection.InsertMany(data);
             }
         }
