@@ -1,10 +1,12 @@
-﻿using FluentAssertions;
+﻿using AutoMapper;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 using Top5Radio.Admin.Controllers;
 using Top5Radio.Admin.Domain;
 using Top5Radio.Admin.Domain.Models;
@@ -16,45 +18,50 @@ namespace Top5Radio.UnitTests.ControllerTests
 {
     public class AdminControllerTests
     {
-        private readonly Mock<IMusicDomainService> _musicDomainServiceMock;
-        private readonly Mock<IMusicRepository> _musicRepositoryMock;
+        private readonly Mock<IUserVoteDomainService> _musicDomainServiceMock;
+        private readonly Mock<IUserVoteRepository> _userVoteRepositoryMock;
+        private readonly Mock<IMapper> _mapperMock;
 
         private readonly AdminController controller;
 
         public AdminControllerTests()
         {
-            _musicDomainServiceMock = new Mock<IMusicDomainService>();
-            _musicRepositoryMock = new Mock<IMusicRepository>();
+            _musicDomainServiceMock = new Mock<IUserVoteDomainService>();
+            _userVoteRepositoryMock = new Mock<IUserVoteRepository>();
+            _mapperMock = new Mock<IMapper>();
 
-            controller = new AdminController(_musicDomainServiceMock.Object, _musicRepositoryMock.Object);
+            controller = new AdminController(_musicDomainServiceMock.Object, _userVoteRepositoryMock.Object, _mapperMock.Object);
         }
 
         [Fact]
-        public void TestTop5Songs()
+        public async Task TestTop5Songs()
         {
-            _musicRepositoryMock.Setup(f => f.Filter(It.IsAny<Expression<Func<MusicData, bool>>>()))
-                .Returns(TestsMock.MostVotedMusicMock);
+            _userVoteRepositoryMock.Setup(f => f.Filter(It.IsAny<Expression<Func<UserVoteData, bool>>>()))
+                .ReturnsAsync(TestsMockAdmin.MostVotedMusicDataMock);
 
-            var result = controller.CalculateTopSongs();
+            var result = await controller.CalculateTopSongs();
 
             result.Should().BeOfType(typeof(OkObjectResult));
-            (result as OkObjectResult).Value.Should().BeEquivalentTo(TestsMock.MostVotedMusicResultMock);
+            (result as OkObjectResult).Value.Should().BeEquivalentTo(TestsMockAdmin.MostVotedMusicResultMock);
         }
 
         [Fact]
-        public void TestUserConsolidation()
+        public async Task TestUserConsolidation()
         {
-            _musicRepositoryMock.Setup(f => f.Filter(It.IsAny<Expression<Func<MusicData, bool>>>()))
-                .Returns(TestsMock.MostVotedMusicMock);
+            _userVoteRepositoryMock.Setup(f => f.Filter(It.IsAny<Expression<Func<UserVoteData, bool>>>()))
+                .ReturnsAsync(TestsMockAdmin.MostVotedMusicDataMock);
 
-            IEnumerable<Music> top5music = null;
-            _musicDomainServiceMock.Setup(f => f.ConsolidateUserVotes(It.IsAny<IEnumerable<Music>>()))
-                .Callback<IEnumerable<Music>>(obj => top5music = obj);
+            _mapperMock.Setup(f => f.Map<List<UserVote>>(It.IsAny<object>()))
+                .Returns(TestsMockAdmin.MostVotedMusicMock);
 
-            var result = controller.CalculateUserContribution();
+            IEnumerable<UserVote> top5music = null;
+            _musicDomainServiceMock.Setup(f => f.ConsolidateUserVotes(It.IsAny<IEnumerable<UserVote>>()))
+                .Callback<IEnumerable<UserVote>>(obj => top5music = obj);
+
+            var result = await controller.CalculateUserContribution();
 
             result.Should().BeOfType(typeof(OkObjectResult));
-            top5music.Should().BeEquivalentTo(TestsMock.MostVotedMusicResultMock);
+            top5music.Should().BeEquivalentTo(TestsMockAdmin.MostVotedMusicResultMock);
         }
     }
 }

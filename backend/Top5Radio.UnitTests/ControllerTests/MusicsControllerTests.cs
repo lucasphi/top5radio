@@ -33,10 +33,10 @@ namespace Top5Radio.UnitTests.ControllerTests
         public async Task TestSongChoosingApi()
         {
             _musicRepositoryMock.Setup(f => f.Filter(It.IsAny<Expression<Func<MusicData, bool>>>()))
-                .ReturnsAsync(TestsMock.MusicsMock);
+                .ReturnsAsync(TestsMockMusics.MusicsMock);
 
             _userVoteRepositoryMock.Setup(f => f.Filter(It.IsAny<Expression<Func<UserVoteData, bool>>>()))
-                .ReturnsAsync(TestsMock.UserVotesMock);
+                .ReturnsAsync(TestsMockMusics.UserVotesMock);
 
             IEnumerable<UserVoteData> votes = null;
             _userVoteRepositoryMock.Setup(f => f.UpsertBatch(It.IsAny<IEnumerable<UserVoteData>>()))
@@ -44,7 +44,7 @@ namespace Top5Radio.UnitTests.ControllerTests
 
             var result = await controller.ChooseTopFive(new TopSongs() { Username = "Test", Songs = new List<string> { "1", "2", "3" } });
 
-            votes.Should().BeEquivalentTo(TestsMock.MusicsUpdatedMock);
+            votes.Should().BeEquivalentTo(TestsMockMusics.MusicsUpdatedMock);
             result.Should().BeOfType(typeof(OkResult));
         }
     }

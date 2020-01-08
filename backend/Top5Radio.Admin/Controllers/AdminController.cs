@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Top5Radio.Admin.Domain;
 using Top5Radio.Admin.Domain.Models;
+using Top5Radio.Admin.Persistance.Data;
 using Top5Radio.Admin.Persistance.Repository.Interfaces;
 
 namespace Top5Radio.Admin.Controllers
@@ -13,29 +15,33 @@ namespace Top5Radio.Admin.Controllers
     [Route("[controller]")]
     public class AdminController : ControllerBase
     {
-        private readonly IMusicDomainService _musicDomainService;
-        private readonly IMusicRepository _musicRepository;
+        private readonly IUserVoteDomainService _userVoteDomainService;
+        private readonly IUserVoteRepository _userVoteRepository;
+        private readonly IMapper _mapper;
 
-        public AdminController(IMusicDomainService musicDomainService,
-                               IMusicRepository musicRepository)
+        public AdminController(IUserVoteDomainService userVoteDomainService,
+                               IUserVoteRepository userVoteRepository,
+                               IMapper mapper)
         {
-            _musicDomainService = musicDomainService;
-            _musicRepository = musicRepository;
+            _userVoteDomainService = userVoteDomainService;
+            _userVoteRepository = userVoteRepository;
+            _mapper = mapper;
         }
 
         [HttpGet("topsongs")]
-        public IActionResult CalculateTopSongs()
+        public async Task<IActionResult> CalculateTopSongs()
         {
-            IEnumerable<Music> top5 = _musicRepository.Filter(f => f.Voted > 0).OrderByDescending(f => f.Voted).Take(5);
+            IEnumerable<UserVoteData> top5 = (await _userVoteRepository.Filter(f => f.Voted > 0)).OrderByDescending(f => f.Voted).Take(5);
             return Ok(top5);
         }
 
         [HttpGet("usercontribution")]
-        public IActionResult CalculateUserContribution()
+        public async Task<IActionResult> CalculateUserContribution()
         {
-            IEnumerable<Music> top5 = _musicRepository.Filter(f => f.Voted > 0).OrderByDescending(f => f.Voted).Take(5);
+            IEnumerable<UserVoteData> top5 = (await _userVoteRepository.Filter(f => f.Voted > 0)).OrderByDescending(f => f.Voted).Take(5);
 
-            var users = _musicDomainService.ConsolidateUserVotes(top5);
+            var userVotes = _mapper.Map<List<UserVote>>(top5);
+            var users = _userVoteDomainService.ConsolidateUserVotes(userVotes);
 
             return Ok(users);
         }

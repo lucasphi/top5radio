@@ -1,12 +1,15 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Top5Radio.Shared.MongoDb;
 
 namespace Top5Radio.Admin.Persistance.Data
 {
-    public class MusicData
+    public class UserVoteData : IDocument
     {
+        [BsonId]
         public string Id { get; set; }
 
         public string Name { get; set; }

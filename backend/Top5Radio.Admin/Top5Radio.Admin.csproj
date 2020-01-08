@@ -12,9 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="spotify-top100-2018.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <ProjectReference Include="..\Top5Radio.Shared\Top5Radio.Shared.csproj" />
   </ItemGroup>
 
 
