@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Top5Radio.Shared\Top5Radio.Shared.csproj" />
+    <ProjectReference Include="../Top5Radio.Shared/Top5Radio.Shared.csproj" />
   </ItemGroup>
 
 

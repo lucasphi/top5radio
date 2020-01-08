@@ -3,7 +3,8 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /src
-COPY . Top5Radio.Admin/
+COPY ./Top5Radio.Admin/. Top5Radio.Admin/
+COPY ./Top5Radio.Shared/. Top5Radio.Shared/
 RUN dotnet restore "Top5Radio.Admin/Top5Radio.Admin.csproj"
 WORKDIR /src/Top5Radio.Admin/
 RUN dotnet build "Top5Radio.Admin.csproj" -c Release -o /app

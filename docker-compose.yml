@@ -20,8 +20,8 @@ services:
   api:
     image: top5radio-api
     build:
-      context: ./backend/Top5Radio.API/
-      dockerfile: Dockerfile
+      context: ./backend/
+      dockerfile: Top5Radio.API/Dockerfile
     ports:
       - "5000:80"
     networks:
@@ -31,8 +31,8 @@ services:
   admin:
     image: top5radio-admin
     build:
-      context: ./backend/Top5Radio.Admin/
-      dockerfile: Dockerfile
+      context: ./backend/
+      dockerfile: Top5Radio.Admin/Dockerfile
     ports:
       - "5001:80"
     networks:
