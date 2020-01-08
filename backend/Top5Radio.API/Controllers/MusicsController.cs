@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Top5Radio.Admin.Models;
+using Top5Radio.API.Persistance.Data;
 using Top5Radio.API.Persistance.Repository.Interfaces;
 
 namespace Top5Radio.API.Controllers
@@ -28,16 +30,29 @@ namespace Top5Radio.API.Controllers
 
         [HttpPost("vote")]
         public async Task<IActionResult> ChooseTopFive([FromBody] TopSongs model)
-        {
-            var songs = await _voteRepository.Filter(f => model.Songs.Any(s => s == f.Id));
+        {            
+            var songs = _musicRepository.Filter(f => model.Songs.Contains(f.Id));
+            var userSongs = await _voteRepository.Filter(f => model.Songs.Contains(f.Id));
 
-            foreach (var song in songs)
+            var updatedSongs = new List<UserVoteData>();
+            foreach (var votedSong in model.Songs)
             {
+                var song = userSongs.FirstOrDefault(f => f.Id == votedSong);
+                if (song == null)
+                {
+                    var baseSong = (await songs).FirstOrDefault(f => f.Id == votedSong);
+                    song = new UserVoteData()
+                    {
+                        Id = baseSong.Id,
+                        Name = baseSong.Name,
+                    };
+                }
                 song.Voted += 1;
                 song.Users.Add(model.Username);
+                updatedSongs.Add(song);
             }
 
-            await _voteRepository.UpsertBatch(songs);
+            await _voteRepository.UpsertBatch(updatedSongs);
 
             return Ok();
         }

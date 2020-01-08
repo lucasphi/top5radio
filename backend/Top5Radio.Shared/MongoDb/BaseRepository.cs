@@ -1,8 +1,8 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using Top5Radio.Shared.MongoDb.Configuration;
 
@@ -33,10 +33,10 @@ namespace Top5Radio.Shared.MongoDb
             return _collection.Find(expression).ToListAsync();
         }
 
-        public Task UpsertBatch(IEnumerable<TData> data)
+        public Task UpsertBatch(IEnumerable<TData> documents)
         {
             var bulkOps = new List<WriteModel<TData>>();
-            foreach (var record in data)
+            foreach (var record in documents)
             {
                 var upsertOne = new ReplaceOneModel<TData>(
                     Builders<TData>.Filter.Where(x => x.Id == record.Id),

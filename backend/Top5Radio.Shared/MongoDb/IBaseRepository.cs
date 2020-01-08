@@ -12,6 +12,6 @@ namespace Top5Radio.Shared.MongoDb
 
         Task<List<TData>> Filter(Expression<Func<TData, bool>> expression);
 
-        Task UpsertBatch(IEnumerable<TData> data);
+        Task UpsertBatch(IEnumerable<TData> documents);
     }
 }
