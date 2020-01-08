@@ -6,6 +6,8 @@ services:
       - "27017:27017"
     networks:
       - gateway
+    volumes: 
+      - db:/data/db
   web:
     image: top5radio-web
     build:
@@ -42,3 +44,6 @@ services:
 
 networks:
   gateway: {}
+
+volumes: 
+  db: {}
