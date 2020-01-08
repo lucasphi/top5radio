@@ -4,7 +4,7 @@
     <mat-form-field class="example-full-width">
         <input matInput type="text" placeholder="Please tell us your name" [(ngModel)]="username" />
     </mat-form-field>    
-    <button color="primary" mat-raised-button *ngIf="selectedMusic.length === 5"
+    <button color="primary" mat-raised-button [disabled]="selectedMusic.length < 5 || username == null"
         (click)="sendChoises()">Send choices!</button>
 </div>
 

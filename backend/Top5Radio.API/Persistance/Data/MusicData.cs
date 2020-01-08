@@ -1,12 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Top5Radio.Shared.MongoDb;
 
-namespace Top5Radio.Persistance.Data
+namespace Top5Radio.API.Persistance.Data
 {
-    public class MusicData
+    public class MusicData : IDocument
     {
+        [BsonId]
         public string Id { get; set; }
 
         public string Name { get; set; }

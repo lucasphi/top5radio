@@ -6,8 +6,8 @@ using Top5Radio.Admin.Domain.Models;
 
 namespace Top5Radio.Admin.Domain
 {
-    public interface IMusicDomainService
+    public interface IUserVoteDomainService
     {
-        IEnumerable<User> ConsolidateUserVotes(IEnumerable<Music> musics);
+        IEnumerable<User> ConsolidateUserVotes(IEnumerable<UserVote> musics);
     }
 }

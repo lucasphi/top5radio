@@ -1,6 +1,7 @@
-﻿using MongoDB.Driver;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Top5Radio.API.Persistance.Data;
 using Top5Radio.API.Persistance.Repository.Interfaces;
 using Top5Radio.Shared;
@@ -9,12 +10,12 @@ using Top5Radio.Shared.MongoDb.Configuration;
 
 namespace Top5Radio.API.Persistance.Repository
 {
-    public class MusicRepository : BaseRepository<MusicData>, IMusicRepository
+    public class UserVoteRepository : BaseRepository<UserVoteData>, IUserVoteRepository
     {
-        public MusicRepository(IDatabaseSettings dbSettings)
-            : base (dbSettings)
+        public UserVoteRepository(IDatabaseSettings dbSettings)
+            : base(dbSettings)
         { }
 
-        public override string CollectionName => Constants.Database.MUSIC_COLLECTION;
+        public override string CollectionName => Constants.Database.VOTES_COLLECTION;
     }
 }

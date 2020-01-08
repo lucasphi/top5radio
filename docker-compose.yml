@@ -1,5 +1,13 @@
 version: "3.3"
 services:
+  database:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - gateway
+    volumes: 
+      - db:/data/db
   web:
     image: top5radio-web
     build:
@@ -9,24 +17,33 @@ services:
       - "80:80"
     networks:
       - gateway
+    depends_on:
+      - api
   api:
     image: top5radio-api
     build:
-      context: ./backend/Top5Radio.API/
-      dockerfile: Dockerfile
+      context: ./backend/
+      dockerfile: Top5Radio.API/Dockerfile
     ports:
       - "5000:80"
     networks:
       - gateway
+    depends_on:
+      - database
   admin:
     image: top5radio-admin
     build:
-      context: ./backend/Top5Radio.Admin/
-      dockerfile: Dockerfile
+      context: ./backend/
+      dockerfile: Top5Radio.Admin/Dockerfile
     ports:
       - "5001:80"
     networks:
-      - gateway
+      - gateway  
+    depends_on:
+      - database
 
 networks:
   gateway: {}
+
+volumes: 
+  db: {}

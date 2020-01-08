@@ -16,33 +16,33 @@ namespace Top5Radio.UnitTests.Admin.DomainTests
             },
             new object[]
             {
-                new List<Music>()
+                new List<UserVote>()
                 {
-                    new Music()
+                    new UserVote()
                     {
                         Id = "1",
                         Voted = 2,
                         Users = new List<string>() { "Test1", "Test2" }
                     },
-                    new Music()
+                    new UserVote()
                     {
                         Id = "2",
                         Voted = 1,
                         Users = new List<string>() { "Test2" }
                     },
-                    new Music()
+                    new UserVote()
                     {
                         Id = "3",
                         Voted = 3,
                         Users = new List<string>() { "Test2", "Test3", "Test4" }
                     },
-                    new Music()
+                    new UserVote()
                     {
                         Id = "4",
                         Voted = 3,
                         Users = new List<string>() { "Test3", "Test5" }
                     },
-                    new Music()
+                    new UserVote()
                     {
                         Id = "5",
                         Voted = 3,

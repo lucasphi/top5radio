@@ -6,9 +6,9 @@ using Top5Radio.Admin.Domain.Models;
 
 namespace Top5Radio.Admin.Domain
 {
-    public class MusicDomainService : IMusicDomainService
+    public class UserVoteDomainService : IUserVoteDomainService
     {
-        public IEnumerable<User> ConsolidateUserVotes(IEnumerable<Music> musics)
+        public IEnumerable<User> ConsolidateUserVotes(IEnumerable<UserVote> musics)
         {
             var users = new Dictionary<string, User>();
 

@@ -1,17 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Top5Radio.API.Persistance.Configuration;
+using Top5Radio.API.Persistance.Repository;
 using Top5Radio.API.Persistance.Repository.Interfaces;
-using Top5Radio.Data;
-using Top5Radio.Data.Repository;
 
 namespace Top5Radio.API
 {
@@ -28,6 +22,10 @@ namespace Top5Radio.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IMusicRepository, MusicRepository>();
+            services.AddTransient<IUserVoteRepository, UserVoteRepository>();
+
+            services.AddTopSongsDatabase(Configuration);
+            SetupDb.PopulateDatabase(Configuration);
 
             services.AddCors((options) =>
             {

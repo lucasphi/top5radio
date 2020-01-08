@@ -22,14 +22,16 @@ namespace Top5Radio.Admin
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IMusicRepository, MusicRepository>();
+            services.AddTransient<IUserVoteRepository, UserVoteRepository>();
 
-            services.AddTransient<IMusicDomainService, MusicDomainService>();
+            services.AddTransient<IUserVoteDomainService, UserVoteDomainService>();
+
+            services.AddTopSongsDatabase(Configuration);
 
             services.AddAutoMapper(typeof(Startup));
             var mappingConfig = new MapperConfiguration(c =>
             {
-                c.CreateMap<Domain.Models.Music, Persistance.Data.MusicData>().ReverseMap();
+                c.CreateMap<Domain.Models.UserVote, Persistance.Data.UserVoteData>().ReverseMap();
             });
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Top5Radio.Admin.Models
 {
-    public class Top5Songs
+    public class TopSongs
     {
         public string Username { get; set; }
 

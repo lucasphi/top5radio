@@ -12,9 +12,9 @@ namespace Top5Radio.UnitTests.Admin.DomainTests
     {
         [Theory]
         [MemberData(nameof(TestsMock.ConsolidateMocks), MemberType = typeof(TestsMock))]
-        public void TestConsolidateUsers(IEnumerable<Music> musics, IEnumerable<User> usersResult)
+        public void TestConsolidateUsers(IEnumerable<UserVote> musics, IEnumerable<User> usersResult)
         {
-            var domainService = new MusicDomainService();
+            var domainService = new UserVoteDomainService();
 
             var users = domainService.ConsolidateUserVotes(musics);
 
